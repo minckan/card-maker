@@ -26,17 +26,17 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
             setCards(cards)
         })
         return () => stopSync()// 리소스를 정리하고 메모리를 정리 할수있음
-    }, [userId])
+    }, [userId, cardRepository])
+
     useEffect(() => {
         authService.onAuthChange(user => {
             if (user) { 
                 setUserId(user.uid)
-                console.log('userId : ' ,userId);
             } else {
                 navigate('/')
             }
         })
-    })
+    }, [userId, authService, navigate])
     const createOrUpdateCard = (card) => {
         setCards(cards => {
             const updated = { ...cards }
